@@ -1,0 +1,11 @@
+# Python
+--pychache--/
+*.py[cod]
+venv/
+
+# React
+node_modules/
+build/
+
+# Environment variables
+.env
