@@ -50,7 +50,7 @@ jobs:
           scp -i private_key -o StrictHostKeyChecking=no -r backend/* ${USER}@${HOST}:/home/${USER}/portfolio/backend/
           
           echo "Copying frontend files..."
-          scp -i private_key -o StrictHostKeyChecking=no -r frontend/* ${USER}@${HOST}:/home/${USER}/portfolio/frontend/
+          scp -i private_key -o StrictHostKeyChecking=no -r frontend/!(node_modules) ${USER}@${HOST}:/home/${USER}/portfolio/frontend/
 
           echo "Copying docker-compose.yml..."
           scp -i private_key -o StrictHostKeyChecking=no docker-compose.yml ${USER}@${HOST}:/home/${USER}/portfolio/
@@ -74,4 +74,4 @@ jobs:
             docker-compose up -d --build
           '
           
-          echo "Deployment script completed.02"
+          echo "Deployment script completed.03"
