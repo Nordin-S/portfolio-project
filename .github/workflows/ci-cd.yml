@@ -43,13 +43,35 @@ jobs:
           ssh -i private_key -o StrictHostKeyChecking=no ${USER}@${HOST} '
             mkdir -p /home/${USER}/portfolio/backend
             mkdir -p /home/${USER}/portfolio/frontend
-          '
-          scp -i private_key -o StrictHostKeyChecking=no -r backend/* ${USER}@${HOST}:/home/${USER}/portfolio/backend/
-          scp -i private_key -o StrictHostKeyChecking=no -r frontend/* ${USER}@${HOST}:/home/${USER}/portfolio/frontend/
-          scp -i private_key -o StrictHostKeyChecking=no docker-compose.yml ${USER}@${HOST}:/home/${USER}/portfolio/
-          ssh -i private_key -o StrictHostKeyChecking=no ${USER}@${HOST} '
-            cd /home/${USER}/portfolio &&
-            docker-compose down &&
-            docker-compose up -d --build
+            echo "Directories created."
           '
 
+          echo "Copying backend files..."
+          scp -i private_key -o StrictHostKeyChecking=no -r backend/* ${USER}@${HOST}:/home/${USER}/portfolio/backend/
+          
+          echo "Copying frontend files..."
+          scp -i private_key -o StrictHostKeyChecking=no -r frontend/* ${USER}@${HOST}:/home/${USER}/portfolio/frontend/
+
+          echo "Copying docker-compose.yml..."
+          scp -i private_key -o StrictHostKeyChecking=no docker-compose.yml ${USER}@${HOST}:/home/${USER}/portfolio/
+
+          echo "Running commands on EC2"
+          ssh -i private_key -o StrictHostKeyChecking=no ${USER}@${HOST} '
+            cd /home/${USER}/portfolio &&
+            echo "Current directory: $(pwd)"
+            echo "Contents of current directory:"
+            ls -la
+            echo "Contents of backend directory:"
+            ls -la backend
+            echo "Contents of frontend directory:"
+            ls -la frontend
+            echo "Docker version:"
+            docker --version
+            echo "Docker Compose version:"
+            docker-compose --version
+            echo "Running docker-compose down..."
+            docker-compose down && echo "Running docker-compose up -d --build..."
+            docker-compose up -d --build
+          '
+          
+          echo "Deployment script completed."
