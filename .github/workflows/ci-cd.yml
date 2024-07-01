@@ -74,4 +74,4 @@ jobs:
             docker-compose up -d --build
           '
           
-          echo "Deployment script completed."
+          echo "Deployment script completed.02"
