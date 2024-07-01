@@ -12,7 +12,10 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      
+
+      - name: Rsync Deployments Action
+        uses: Burnett01/rsync-deployments@7.0.1     
+
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
@@ -50,7 +53,7 @@ jobs:
           scp -i private_key -o StrictHostKeyChecking=no -r backend/* ${USER}@${HOST}:/home/${USER}/portfolio/backend/
           
           echo "Copying frontend files..."
-          scp -i private_key -o StrictHostKeyChecking=no -r frontend/!(node_modules) ${USER}@${HOST}:/home/${USER}/portfolio/frontend/
+          rsync -avz --exclude 'node_modules' -e "ssh -i private_key -o StrictHostKeyChecking=no" frontend/ ${USER}@${HOST}:/home/${USER}/portfolio/frontend/
 
           echo "Copying docker-compose.yml..."
           scp -i private_key -o StrictHostKeyChecking=no docker-compose.yml ${USER}@${HOST}:/home/${USER}/portfolio/
