@@ -40,6 +40,10 @@ jobs:
           USER: ${{ secrets.EC2_USER }}
         run: |
           echo "$PRIVATE_KEY" > private_key && chmod 600 private_key
+          ssh -i private_key -o StrictHostKeyChecking=no ${USER}@${HOST} '
+            mkdir -p /home/${USER}/portfolio/backend
+            mkdir -p /home/${USER}/portfolio/frontend
+          '
           scp -i private_key -o StrictHostKeyChecking=no -r backend/* ${USER}@${HOST}:/home/${USER}/portfolio/backend/
           scp -i private_key -o StrictHostKeyChecking=no -r frontend/build/* ${USER}@${HOST}:/home/${USER}/portfolio/frontend/
           ssh -i private_key -o StrictHostKeyChecking=no ${USER}@${HOST} '
