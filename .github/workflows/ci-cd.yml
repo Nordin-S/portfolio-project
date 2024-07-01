@@ -46,6 +46,7 @@ jobs:
           '
           scp -i private_key -o StrictHostKeyChecking=no -r backend/* ${USER}@${HOST}:/home/${USER}/portfolio/backend/
           scp -i private_key -o StrictHostKeyChecking=no -r frontend/build/* ${USER}@${HOST}:/home/${USER}/portfolio/frontend/
+          scp -i private_key -o StrictHostKeyChecking=no docker-compose.yml ${USER}@${HOST}:/home/${USER}/portfolio/
           ssh -i private_key -o StrictHostKeyChecking=no ${USER}@${HOST} '
             cd /home/${USER}/portfolio &&
             docker-compose down &&
