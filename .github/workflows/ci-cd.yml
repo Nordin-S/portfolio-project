@@ -43,8 +43,8 @@ jobs:
           scp -i private_key -o StrictHostKeyChecking-no -r backend/* ${USER}@${HOST}:/home/${USER}/portfolio/backend/
           scp -i private_key -o StrictHostKeyChecking-no -r frontend/build/* ${USER}@${HOST}:/home/${USER}/portfolio/frontend/
           ssh -i private_key -o StrictHostKeyChecking=no ${USER}@${HOST} '
-          cd /home/${USER}/portfolio &&
-          docker-compose down &&
-          docker-compose up -d --build
-        '
+            cd /home/${USER}/portfolio &&
+            docker-compose down &&
+            docker-compose up -d --build
+          '
 
